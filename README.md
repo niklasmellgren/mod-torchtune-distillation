@@ -96,7 +96,7 @@ self.projections = nn.ModuleList([
     for _ in range(3)                   # one per layer-pair above
 ])
 ```
-(Model dimensions are hard-coded in the recipe - future optimization potential)
+(Model dimensions are hard-coded in the kd_recipe - future optimization potential)
 
 ### Cosine-similarity IR loss:
 ```python
