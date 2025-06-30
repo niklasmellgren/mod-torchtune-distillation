@@ -111,7 +111,6 @@ Want MSE instead? Replace the cosine line with `ir_loss += F.mse_loss(s_h_proj, 
 ### Choose KD divergence:
 ```yaml
 # .yaml
-# distillation.yaml
 kd_loss:
   _component_: kd_losses.JSDistanceLoss    # or ForwardKLLoss, ReverseKLLoss …
 ```
@@ -129,6 +128,7 @@ loss_scaling:
 ```
 If you prefer the simple torchtune blend:
 ```yaml
+# .yaml
 loss_scaling:
   enabled: false
 kd_ratio: 0.5
