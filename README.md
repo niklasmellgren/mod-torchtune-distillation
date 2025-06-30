@@ -63,10 +63,11 @@ This setup used a custom layer mapping strategy and manual loss scaling with:
 ---
 
 ## Key implementation details
-Everything below is adjustable in configs/distillation.yaml.
+Every .yaml example below is adjustable in configs/distillation.yaml.
 
 ### Emit hidden states
 ```yaml
+# .yaml
 model:
   _component_: torchtune.models.llama3_1b
   output_hidden_states: true
@@ -78,6 +79,7 @@ teacher_model:
 
 ### Custom layer mapping:
 ```yaml
+# .yaml
   - [0, 15]   # student layer 0 → teacher layer 15
   - [1, 20]
   - [2, 25]
@@ -96,6 +98,7 @@ self.projections = nn.ModuleList([
 
 ### Cosine-similarity IR loss:
 ```python
+# kd_recipe.py
 s_h_proj = self.projections[i](student_hiddens[i])
 s_h_proj = F.layer_norm(s_h_proj, s_h_proj.shape[-1:])
 t_h      = F.layer_norm(teacher_hiddens[i], t_h.shape[-1:])
@@ -107,6 +110,7 @@ Want MSE instead? Replace the cosine line with `ir_loss += F.mse_loss(s_h_proj, 
 
 ### Choose KD divergence:
 ```yaml
+# .yaml
 # distillation.yaml
 kd_loss:
   _component_: kd_losses.JSDistanceLoss    # or ForwardKLLoss, ReverseKLLoss …
@@ -115,6 +119,7 @@ All implementations live in src/kd_losses.py
 
 ### Manual loss-scaling (CE / KD / IR):
 ```yaml
+# .yaml
 loss_scaling:
   enabled: true
   manual_scales:
@@ -131,6 +136,7 @@ kd_ratio: 0.5
 
 ### Chunked logits (long-context friendly):
 ```yaml
+# .yaml
 loss:
   _component_: torchtune.losses.CEWithChunkedOutputLoss
   num_output_chunks: 8   # splits each sequence into 8 chunks
