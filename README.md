@@ -4,7 +4,7 @@ This repository contains implementations and experiments on **knowledge distilla
 
 ## Key Contribution
 
-**This project extends the official [torchtune](https://github.com/pytorch/torchtune) knowledge distillation recipe for single devices and the torchtune loss module** with open-source contributions aimed at improving flexibility, transparency, and performance.
+This project extends the official [torchtune](https://github.com/pytorch/torchtune) **knowledge distillation recipe for single devices** and the torchtune **loss module** with **open-source contributions** aimed at improving flexibility, transparency, and performance.
 
 - Flexible **layer-to-layer alignment** between teacher and student models  
   > Allows custom mappings across unequal layer depths (e.g., 16-layer student ↔ 28-layer teacher), supporting partial hidden state supervision.
