@@ -63,7 +63,7 @@ This setup used a custom layer mapping strategy and manual loss scaling with:
 ---
 
 ## Key implementation details
-Everything below is adjustable in configs/distillation.yaml – no Python edits required.
+Everything below is adjustable in configs/distillation.yaml.
 
 ### Emit hidden states
 ```yaml
