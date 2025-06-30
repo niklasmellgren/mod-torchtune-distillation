@@ -15,10 +15,10 @@ This project extends the official [torchtune](https://github.com/pytorch/torchtu
 - **Intermediate representation (IR) supervision** via cosine similarity  
   > Cosine loss between normalized projected hidden states enhances semantic transfer across architectures, replacing underweighted MSE.
 
-- Modular **loss scaling framework**  
+- Modular **loss scaling** framework  
   > Enables manual or dynamic weighting of cross-entropy, KD, and IR losses for interpretable, balanced training dynamics.
 
-- **Memory-efficient training** with chunked loss computation and structured logging  
+- Memory-efficient training with **chunked loss computation** and structured logging  
   > Processes long sequences in slices for stability and supports fine-grained loss reporting via Weights & Biases.
 
 Core contributions are implemented in the modified `knowledge_distillation_single_device.py` and `kd_losses.py` files.
