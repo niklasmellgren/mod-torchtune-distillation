@@ -58,7 +58,6 @@ Trained on the `alpaca.cleaned.dataset` and evaluated using:
 
 **Best-distilled recipe details**
 
-* Teacher: Llama 3.2 3B LoRA fine-tuned
 * KD loss: Jensen–Shannon divergence
 * IR supervision: Cosine similarity on layer map `[[0,15], [1,20], [2,25]]` (early student layers → deeper teacher layers)
 * Manual loss scales: `ce 0.5`, `kd 0.3`, `ir 0.2`
