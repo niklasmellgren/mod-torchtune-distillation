@@ -48,17 +48,22 @@ Trained on the `alpaca.cleaned.dataset` and evaluated using:
 - **HellaSwag**
 - **CommonSenseQA**
 
-### Best performance for distilled models:
+### Benchmark results — baseline vs best-distilled 1 B model
 
-From the `3B-LoRA-to-1B` configuration using Jensen-Shannon divergence and cosine-aligned intermediate representation loss:
+| Task / Metric        | 1 B **baseline**<br>(no KD, no LoRA) | **Best distilled 1 B**<br>(3 B-LoRA → 1 B, JSD + IR) | ▲ Δ Absolute | ▲ Δ Percent |
+| -------------------- | ------------------------------------ | ---------------------------------------------------- | ------------ | ----------- |
+| TruthfulQA (mc2 acc) | 0.4387                               | **0.4652**                                           | +0.0265  | +6.0 %  |
+| HellaSwag (acc)      | 0.4508                               | **0.4583**                                           | +0.0075  | +1.7 %  |
+| CommonSenseQA (acc)  | 0.5536                               | **0.5627**                                           | +0.0091  | +1.6 %  |
 
-- **TruthfulQA (mc2 acc):** 0.4652
-- **HellaSwag (acc):** 0.4583
-- **CommonSenseQA (acc):** 0.5627
+**Best-distilled recipe details**
 
-This setup used a custom layer mapping strategy and manual loss scaling with:
-- `ce: 0.5`, `kd: 0.3`, `ir: 0.2`
-- Layer mapping: `[[0,15], [1,20], [2,25]]` (early student layers → deeper teacher layers)
+* Teacher: Llama 3.2 3B LoRA fine-tuned
+* KD loss: Jensen–Shannon divergence
+* IR supervision: Cosine similarity on layer map `[[0,15], [1,20], [2,25]]` (early student layers → deeper teacher layers)
+* Manual loss scales: `ce 0.5`, `kd 0.3`, `ir 0.2`
+
+This configuration beats the plain 1B baseline on every benchmark while still fitting on a single GPU.
 
 ---
 
