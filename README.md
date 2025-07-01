@@ -48,9 +48,9 @@ Trained on the `alpaca.cleaned.dataset` and evaluated using:
 - **HellaSwag**
 - **CommonSenseQA**
 
-### Benchmark results — baseline vs best-distilled 1 B model
+### Benchmark results — baseline vs best-distilled 1B model
 
-| Task / Metric        | 1 B **baseline**<br>(no KD, no LoRA) | **Best distilled 1 B**<br>(3 B-LoRA → 1 B, JSD + IR) | ▲ Δ Absolute | ▲ Δ Percent |
+| Task / Metric        | 1B **baseline**<br>(no KD, no LoRA) | **Best distilled 1B**<br>(3B-LoRA → 1B, JSD + IR) | ▲ Δ Absolute | ▲ Δ Percent |
 | -------------------- | ------------------------------------ | ---------------------------------------------------- | ------------ | ----------- |
 | TruthfulQA (mc2 acc) | 0.4387                               | **0.4652**                                           | +0.0265  | +6.0 %  |
 | HellaSwag (acc)      | 0.4508                               | **0.4583**                                           | +0.0075  | +1.7 %  |
