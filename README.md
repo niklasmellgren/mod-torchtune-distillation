@@ -149,8 +149,8 @@ The recipe automatically passes lists of logits to both CE & KD losses.
 
 ```bash
 # 1. Install
-git clone https://github.com/<your-handle>/llama-distillation-torchtune.git
-cd llama-distillation-torchtune
+git clone https://github.com/niklasmellgren/distillation-torchtune.git
+cd distillation-torchtune
 pip install -r requirements.txt          
 
 # 2. Download weights (or point YAML to HF IDs)
