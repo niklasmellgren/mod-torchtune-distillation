@@ -1,4 +1,4 @@
-# Knowledge Distillation with torchtune
+# Knowledge Distillation with `torchtune`
 This repository extends the official [torchtune](https://github.com/pytorch/torchtune) **knowledge distillation recipe for single devices** and the torchtune **loss module** with **open-source contributions** aimed at improving flexibility, transparency, and performance. The repository contains implementations and experiments on **knowledge distillation**, where a Llama 3.2 3B teacher model is distilled into a Llama 3.2 1B student model on a single GPU.
 
 ## Key Contribution
