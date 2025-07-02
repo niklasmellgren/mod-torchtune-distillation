@@ -89,7 +89,6 @@ teacher_model:
   - [1, 20]
   - [2, 25]
 ```
-The recipe reads this into `self._layer_mapping`, where it becomes `self._layer_mapping = [[0, 15], [1, 20], [2, 25]]`
 
 ### Student → teacher projection (auto-sized):
 ```python
