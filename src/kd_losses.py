@@ -3,7 +3,7 @@
 # Modifications by Niklas Mellgren
 #
 # Added extra KD losses (Reverse, Symmetric, JS, TV, + chunked variants)
-# Added memory-friendly “WithChunkedOutput” wrappers
+# Added memory-friendly “WithChunkedOutputLoss” wrappers
 
 from typing import List, Optional
 
