@@ -170,16 +170,16 @@ tune download meta-llama/Llama-3.2-1B-Instruct --output-dir models/1B
 huggingface-cli download meta-llama/Llama-3.2-3B-Instruct --local-dir models/3B
 huggingface-cli download meta-llama/Llama-3.2-1B-Instruct --local-dir models/1B
 
-# 3. (Recommended) fine-tune the 3 B teacher first --------------------
+# 3. (Recommended) fine-tune the 3B teacher first (see configs/distillation.yaml)
 #     – skip if you already have a tuned teacher checkpoint
 # torchrun -m torchtune.run \
 #          --config configs/fine_tune_teacher.yaml
 
-# 4. Distil: single-GPU run ------------------------------------------
+# 4. Distil: single-GPU run
 torchrun --nproc_per_node 1 -m torchtune.run \
          --config configs/distillation.yaml
 
-# 5. Evaluate (optional) ---------------------------------------------
+# 5. Evaluate (optional)
 python -m lm_eval \
        --model hf \
        --model_args "pretrained=checkpoints/distilled-1B" \
