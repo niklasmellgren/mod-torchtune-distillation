@@ -17,7 +17,11 @@ This repository extends the official [torchtune](https://github.com/pytorch/torc
 - Memory-efficient training with **chunked loss computation** and structured logging  
   > Processes long sequences in slices for stability and supports fine-grained loss reporting via Weights & Biases.
 
-Core contributions are implemented in the modified `knowledge_distillation_single_device.py` and `kd_losses.py` files.
+Core contributions are implemented in the `kd_recipe.py` and `kd_losses.py` files.
+
+* **[`configs/distillation.yaml`](configs/distillation.yaml)** – end-to-end recipe
+* **[`src/kd_recipe.py`](src/kd_recipe.py)** – distilled training loop
+* **[`src/kd_losses.py`](src/kd_losses.py)** – divergence & chunked-loss classes
 
 ---
 
