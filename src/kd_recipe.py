@@ -625,7 +625,7 @@ class KDRecipeSingleDevice(FTRecipeInterface):
 @config.parse
 def recipe_main(cfg: DictConfig) -> None:
     """
-    Script-level entry point – invoked by TorchTune launcher, e.g.
+    Script-level entry point – invoked by torchtune launcher, e.g.
 
         torchrun -m torchtune.run --config path/to/your.yaml
     """
