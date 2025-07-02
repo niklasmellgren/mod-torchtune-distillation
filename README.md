@@ -175,7 +175,7 @@ huggingface-cli download meta-llama/Llama-3.2-1B-Instruct --local-dir models/1B
 # torchrun -m torchtune.run \
 #          --config configs/fine_tune_teacher.yaml
 
-# 4. Distil: single-GPU run
+# 4. Distill: single-GPU run
 torchrun --nproc_per_node 1 -m torchtune.run \
          --config configs/distillation.yaml
 
