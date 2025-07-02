@@ -30,12 +30,12 @@ teacher_model:
 
 output_hidden_states:
   student: [0, 1, 2]  # Choose layers from student model (16 layers total)
-  teacher: [15, 20, 25] # Choose corresponding layers from teacher model (28 layers total)
+  teacher: [15, 20, 25] # Choose layers from teacher model (28 layers total)
 
 layer_mapping:
-  - [0, 0]  # Map first hidden state pair (student layer 4 → teacher layer 7)
-  - [1, 1]  # Map second hidden state pair (student layer 8 → teacher layer 14)
-  - [2, 2]  # Map third hidden state pair (student layer 12 → teacher layer 21)
+  - [0, 0]  # Map first hidden state pair (student layer 0 → teacher layer 15)
+  - [1, 1]  # Map second hidden state pair (student layer 1 → teacher layer 20)
+  - [2, 2]  # Map third hidden state pair (student layer 2 → teacher layer 25)
 
 loss_scaling:
   enabled: true # Enable or disable loss scaling
