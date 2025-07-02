@@ -1,7 +1,7 @@
 # recipes/knowledge_distillation_single_device.py
 # -----------------------------------------------------------------------------
 # Original file: torchtune/recipes/knowledge_distillation_single_device.py
-# Modifications: © 2025 <your-name>  (BSD-style license inherited from upstream)
+# Modifications by Niklas Mellgren
 #
 # What changed?
 #   • Hidden-state distillation (IR loss) with cosine similarity
@@ -15,6 +15,9 @@
 # Usage tip: If you ever change hidden-state sizes (student/teacher projections), 
 # just adjust the nn.Linear(2048, 3072, …) and the layer_mapping to match what
 # you are using.
+#
+# Llama 3.2 3B hidden_size = 3072
+# Llama 3.2 1B hidden_size = 2048
 
 from __future__ import annotations
 
