@@ -90,15 +90,16 @@ teacher_model:
 ```
 The recipe reads this into `self._layer_mapping`, where it becomes `self._layer_mapping = [[0, 15], [1, 20], [2, 25]]`
 
-### Student → teacher projection:
+### Student → teacher projection (auto-sized):
 ```python
 # kd_recipe.py
-self.projections = nn.ModuleList([
-    nn.Linear(2048, 3072, bias=False)   # 2048 = student dim, 3072 = teacher dim
-    for _ in range(3)                   # one per layer-pair above
-])
+s_dim = self._model.config.hidden_size       # 2048 for Llama-3 1B
+t_dim = self._teacher_model.config.hidden_size # 3072 for Llama-3 3B
+self.projections = nn.ModuleList(
+    [nn.Linear(s_dim, t_dim, bias=False) for _ in layer_mapping]
+)
+
 ```
-(Model dimensions are hard-coded in the kd_recipe - future optimization potential)
 
 ### Cosine-similarity IR loss:
 ```python
