@@ -153,24 +153,36 @@ The recipe automatically passes lists of logits to both CE & KD losses.
 ## Quickstart
 
 ```bash
-# 1. Install
-git clone https://github.com/niklasmellgren/distillation-torchtune.git
-cd distillation-torchtune
-pip install -r requirements.txt          
+# 1. Clone & install --------------------------------------------------
+git clone https://github.com/niklasmellgren/mod-torchtune-distillation.git
+cd  mod-torchtune-distillation
+pip install -r requirements.txt      # installs torchtune nightly + extras
+# (optional) pip install -e .        # if you want editable mode
 
-# 2. Download weights (or point YAML to HF IDs)
-huggingface-cli download meta-llama/Llama-3-3b --local-dir models/3B
-huggingface-cli download meta-llama/Llama-3-1b --local-dir models/1B
+# 2. Fetch weights ----------------------------------------------------
+# ─────────────────── pick ONE of these two snippets ──────────────────
 
-# 3. Train
+# 2-a) Using torchtune’s built-in CLI (“tune download …”)
+tune download meta-llama/Llama-3.2-3B-Instruct --output-dir models/3B
+tune download meta-llama/Llama-3.2-1B-Instruct --output-dir models/1B
+
+# 2-b) Using Hugging Face CLI
+huggingface-cli download meta-llama/Llama-3.2-3B-Instruct --local-dir models/3B
+huggingface-cli download meta-llama/Llama-3.2-1B-Instruct --local-dir models/1B
+
+# 3. (Recommended) fine-tune the 3 B teacher first --------------------
+#     – skip if you already have a tuned teacher checkpoint
+# torchrun -m torchtune.run \
+#          --config configs/fine_tune_teacher.yaml
+
+# 4. Distil: single-GPU run ------------------------------------------
 torchrun --nproc_per_node 1 -m torchtune.run \
          --config configs/distillation.yaml
-```
-Optional eval:
-```bash
+
+# 5. Evaluate (optional) ---------------------------------------------
 python -m lm_eval \
        --model hf \
-       --model_args pretrained=checkpoints/distilled-1B \
+       --model_args "pretrained=checkpoints/distilled-1B" \
        --tasks truthfulqa_mc2,hellaswag,commonsense_qa
 ```
 
