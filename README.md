@@ -1,5 +1,5 @@
 # Knowledge distillation with torchtune
-This repository extends the official [torchtune](https://github.com/pytorch/torchtune) library by modifying torchtune's implementations for single device knowledge distillation with open-source contributions aimed at improving flexibility, transparency, and performance.
+This repository advances the official [torchtune](https://github.com/pytorch/torchtune) library by modifying torchtune's implementations for single device knowledge distillation with open-source contributions aimed at improving flexibility, transparency, and performance.
 
 ## Key contributions
 - Flexible **layer-to-layer alignment** between teacher and student models  
