@@ -117,7 +117,7 @@ Want MSE instead? Replace the cosine line with `ir_loss += F.mse_loss(s_h_proj, 
 ```yaml
 # .yaml
 kd_loss:
-  _component_: kd_losses.JSDistanceLoss    # or ForwardKLLoss, ReverseKLLoss …
+  _component_: kd_losses.JSDistanceWithChunkedOutputLoss    # or ForwardKLLoss, ReverseKLLoss …
 ```
 All implementations live in src/kd_losses.py
 
