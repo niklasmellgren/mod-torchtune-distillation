@@ -1,9 +1,7 @@
-%%writefile recipes/knowledge_distillation_single_device.py
-# -----------------------------------------------------------------------------
-#  Torchtune · Knowledge-Distillation (single-GPU) · Extended recipe
+#  torchtune - knowledge-distillation (single-GPU) - extended recipe
 #
 #  Original upstream: torchtune/recipes/knowledge_distillation_single_device.py
-#  Maintainer / modifier: Niklas Mellgren
+#  Modifications by Niklas Mellgren
 # -----------------------------------------------------------------------------
 #  CHANGE-LOG (vs upstream)
 #  • Hidden-state distillation (IR loss) – cosine distance on arbitrary layer
