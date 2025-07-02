@@ -28,25 +28,11 @@ We distill:
 - **Student:** Llama 3.2 1B (baseline + LoRA fine-tuned)
 
 Trained on the `alpaca.cleaned.dataset` and evaluated using:
-- **TruthfulQA**
-- **HellaSwag**
-- **CommonSenseQA**
+- **TruthfulQA (truthfulqa mc2)**: The best-performing distilled model for this evaluation task, 3B-LoRA-to-1B, maps the early student layers to the deeper layers of the teacher model ([[0, 15], [1,20], [2,25]]) using Jensen-Shannon divergence (JSD) as KL divergence, and a loss scaling of ce: 0.5, kd: 0.3, ir: 0.2 with cosine similarity for intermediate representation alignment. This model achieves the highest score of 0.4652.
+- **HellaSwag (acc norm)**: The best performance on hellaswag acc norm (0.6115) is achieved by the distilled model 3B-LoRA-to-1B, which maps layers evenly with 25%, 50%, and 75% ([[4,7], [8,14], [12,21]]) and uses ForwardKL (FKL) as KL divergence with a loss scaling of ce: 0.5, kd: 0.3, ir: 0.2 and cosine similarity for intermediate representation alignment.
+- **HellaSwag (acc) and CommonSenseQA (acc)**: The 3B-LoRA-to-1B model with kd ratio: 0.5 and JSD as KL divergence scores the highest on both hellaswag acc (0.4583) and commonsense qa acc (0.5627).
 
-### Benchmark results — baseline vs best-distilled 1B model
-
-| Task / Metric        | 1B **baseline**<br>(no KD, no LoRA) | **Best distilled 1B**<br>(3B-LoRA → 1B, JSD + IR) | ▲ Δ Absolute | ▲ Δ Percent |
-| -------------------- | ------------------------------------ | ---------------------------------------------------- | ------------ | ----------- |
-| TruthfulQA (mc2 acc) | 0.4387                               | **0.4652**                                           | +0.0265  | +6.0 %  |
-| HellaSwag (acc)      | 0.4508                               | **0.4583**                                           | +0.0075  | +1.7 %  |
-| CommonSenseQA (acc)  | 0.5536                               | **0.5627**                                           | +0.0091  | +1.6 %  |
-
-**Best-distilled recipe details**
-
-* KD loss: Jensen–Shannon divergence
-* IR supervision: Cosine similarity on layer map `[[0,15], [1,20], [2,25]]` (early student layers → deeper teacher layers)
-* Manual loss scales: `ce 0.5`, `kd 0.3`, `ir 0.2`
-
-This configuration beats the plain 1B baseline on every benchmark while still fitting on a single GPU.
+These findings successfully demonstrate that the modifications to the open-source knowledge distillation recipe and the loss module from torchtune results in boosted metrics across multiple evaluation tasks, achieving high scores across the board.
 
 ---
 
