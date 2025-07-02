@@ -13,7 +13,8 @@
 #   • Extra metric logging (class, kd, ir, tokens/sec, grad-norm)
 # -----------------------------------------------------------------------------
 # Usage tip: If you ever change hidden-state sizes (student/teacher projections), 
-# just adjust the nn.Linear(2048, 3072, …) to match the models you are using.
+# just adjust the nn.Linear(2048, 3072, …) and the layer_mapping to match what
+# you are using.
 
 from __future__ import annotations
 
