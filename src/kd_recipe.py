@@ -7,10 +7,10 @@
 # -----------------------------------------------------------------------------
 #  CHANGE-LOG (vs upstream)
 #  • Hidden-state distillation (IR loss) – cosine distance on arbitrary layer
-#    pairs defined in YAML ``layer_mapping``.
+#    pairs defined in YAML `layer_mapping`.
 #  • Projection layer bank auto-sized from student/teacher hidden_dims.
 #  • Multiple divergence choices for KD: F-KL / R-KL / Sym-KL / JS / TVD.
-#  • Optional manual CE/KD/IR weighting via ``loss_scaling`` block in YAML.
+#  • Optional manual CE/KD/IR weighting via `loss_scaling` block in YAML.
 #  • Compatible with chunked-logit CE/KD losses (long contexts, low VRAM).
 #  • Extra runtime metrics (CE/KD/IR losses, tokens/sec, grad-norm, mem).
 # -----------------------------------------------------------------------------
@@ -24,12 +24,12 @@
 #        enabled: true
 #        manual_scales: {ce: 0.5, kd: 0.3, ir: 0.2}
 #
-#  After editing layer_mapping you **do not** have to touch code: a projection
+#  After editing layer_mapping you do not have to touch code: a projection
 #  layer of shape (student_hidden, teacher_hidden) is built automatically for
 #  each mapping entry.
 # -----------------------------------------------------------------------------
 """
-TorchTune *single-GPU* knowledge-distillation recipe with hidden-state­-level loss.
+torchtune single-GPU knowledge-distillation recipe with hidden-state­-level loss.
 
 High-level flow
 ---------------
@@ -45,7 +45,7 @@ High-level flow
 
 Why hidden-state distillation?
 ------------------------------
-Matching only logits often leaves *internal* representations free to diverge,
+Matching only logits often leaves internal representations free to diverge,
 which hurts generalisation.  Adding a (cheap) cosine term nudges the student to
 *think* like the teacher, not just answer like it.
 
