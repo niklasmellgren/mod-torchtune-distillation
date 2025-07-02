@@ -22,9 +22,9 @@ Core contributions are implemented in the modified `knowledge_distillation_singl
 ---
 
 
-## What’s different from the original `torchtune` upstream?
+## What’s different from the original torchtune upstream?
 
-| Area | `torchtune` | **This repo** |
+| Area | torchtune | **This repo** |
 |------|---------------------|---------------|
 | Knowledge-transfer loss | Forward KL only | Forward / Reverse / Symmetric KL, Jensen-Shannon (JS), Total Variation (TVD) *(see `src/kd_losses.py`)* |
 | Intermediate-representation loss | — | Cosine similarity on chosen hidden-state pairs, with optional projection & layer-norm |
