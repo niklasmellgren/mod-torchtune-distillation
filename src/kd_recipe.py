@@ -107,8 +107,8 @@ class KDRecipeSingleDevice(FTRecipeInterface):
     5. Support for chunked logits when sequence ≫ VRAM.
     6. Extra logging & cleaner progress-bar.
 
-    The rest of TorchTune-goodness (bf16, LoRA, bitsandbytes, activation
-    checkpointing, torch.compile, W&B, etc.) remains fully available.
+    bf16, LoRA, bitsandbytes, activation checkpointing, torch.compile, W&B, etc. 
+    remains fully available.
     """
 
     # --------------------------------------------------------------------- #
