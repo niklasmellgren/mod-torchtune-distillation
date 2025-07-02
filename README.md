@@ -19,9 +19,6 @@ This repository extends the official [torchtune](https://github.com/pytorch/torc
 
 Core contributions are implemented in the `kd_recipe.py` and `kd_losses.py` files.
 
-* **[`configs/distillation.yaml`](configs/distillation.yaml)** – end-to-end recipe
-* **[`src/kd_recipe.py`](src/kd_recipe.py)** – distilled training loop
-* **[`src/kd_losses.py`](src/kd_losses.py)** – divergence & chunked-loss classes
 
 ---
 
