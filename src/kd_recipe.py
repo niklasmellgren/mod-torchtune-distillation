@@ -57,7 +57,7 @@ log = utils.get_logger("DEBUG")
 # --------------------------------------------------------------------------- #
 class KDRecipeSingleDevice(FTRecipeInterface):
     """
-    Distil a large teacher LLM into a smaller student on **one GPU**.
+    Distil a large teacher LLM into a smaller student on one GPU.
 
     Add-ons compared with torchtune’s stock recipe
     ------------------------------------------------
