@@ -31,10 +31,8 @@ Core contributions are implemented in the [`src/kd_recipe.py`](src/kd_recipe.py)
 | Intermediate-representation loss | — | Cosine similarity on chosen hidden-state pairs, with optional projection & layer-norm |
 | Layer alignment | — | `layer_mapping` config lets you align **any** student layer to **any** teacher layer (e.g. `[[0,15],[1,20],[2,25]]`) |
 | Loss weighting | Fixed `(1−kd)·CE + kd·KD` | `ce / kd / ir` **scales** or fallback `kd_ratio` |
-| Memory handling | Full-sequence logits | Works with chunked logits for long contexts |
 | Logging | Overall loss | Per-component CE / KD / IR, grad-norm, tokens/s – via Weights & Biases or stdout |
 | Hidden states | Off | Optional `output_hidden_states` flag per model |
-| Code footprint | 1 recipe | 1 recipe **+** modular `kd_losses.py` (plug-in for other projects) |
 
 ---
 
