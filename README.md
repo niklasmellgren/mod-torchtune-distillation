@@ -148,7 +148,6 @@ loss:
 ```
 The recipe automatically passes lists of logits to both CE & KD losses.
 
----
 
 
 
