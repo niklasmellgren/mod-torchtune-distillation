@@ -6,7 +6,7 @@ This repository extends the official [torchtune](https://github.com/pytorch/torc
   > Allows custom mappings across unequal layer depths (e.g., 16-layer student ↔ 28-layer teacher), supporting partial hidden state supervision.
 
 - Support for multiple **divergence-based loss functions**  
-  > Includes Forward KL, Reverse KL, Symmetric KL (λ-balanced), Jensen-Shannon Divergence (JSD), and Total Variation Distance (TVD) as plug-and-play modules.
+  > Includes Forward KL (only loss implementation in the official torchtune kd recipe). I extend this by including Reverse KL, Symmetric KL (λ-balanced), Jensen-Shannon Divergence (JSD), and Total Variation Distance (TVD) as plug-and-play modules.
 
 - **Intermediate representation (IR) supervision** via cosine similarity  
   > Cosine loss between normalized projected hidden states enhances semantic transfer across architectures, replacing underweighted MSE.
