@@ -64,9 +64,7 @@ The best scores across all distilled models:
 
 To determine the overall best-performing model, I calculated the **percentage difference** from the best score per metric:
 
-\[
-\text{Percentage Difference} = \frac{\text{Max Value} - \text{Model Value}}{\text{Max Value}} \times 100
-\]
+**Percentage Difference** = (Max Value − Model Value) / Max Value × 100
 
 This was averaged across all metrics to yield an **Overall Score**.
 
