@@ -137,8 +137,8 @@ Each experiment uses a different loss weighting combination.
 
 ## Conclusion
 
-- **TruthfulQA (acc)**: The best-performing distilled model for this evaluation task, 3B-LoRA-to-1B, maps the early student layers to the deeper layers of the teacher model ([[0, 15], [1,20], [2,25]]) using Jensen-Shannon divergence (JSD) as KL divergence, and a loss scaling of ce: 0.5, kd: 0.3, ir: 0.2 with cosine similarity for intermediate representation alignment. This model achieves the highest score of 0.4652.
-- **HellaSwag (acc norm)**: The best performance on hellaswag acc norm (0.6115) is achieved by the distilled model 3B-LoRA-to-1B, which maps layers evenly with 25%, 50%, and 75% ([[4,7], [8,14], [12,21]]) and uses ForwardKL (FKL) as KL divergence with a loss scaling of ce: 0.5, kd: 0.3, ir: 0.2 and cosine similarity for intermediate representation alignment.
+- **TruthfulQA (acc)**: The best-performing distilled model for this evaluation task, 3B-LoRA-to-1B, maps the early student layers to the deeper layers of the teacher model (`[[0, 15], [1,20], [2,25]]`) using Jensen-Shannon divergence (JSD) as KL divergence, and a loss scaling of ce: 0.5, kd: 0.3, ir: 0.2 with cosine similarity for intermediate representation alignment. This model achieves the highest score of 0.4652.
+- **HellaSwag (acc norm)**: The best performance on hellaswag acc norm (0.6115) is achieved by the distilled model 3B-LoRA-to-1B, which maps layers evenly with 25%, 50%, and 75% (`[[4,7], [8,14], [12,21]]`) and uses ForwardKL (FKL) as KL divergence with a loss scaling of ce: 0.5, kd: 0.3, ir: 0.2 and cosine similarity for intermediate representation alignment.
 - **HellaSwag (acc) and CommonSenseQA (acc)**: The 3B-LoRA-to-1B model with kd ratio: 0.5 and JSD as KL divergence scores the highest on both hellaswag acc (0.4583) and commonsense qa acc (0.5627).
 
 These findings successfully demonstrate that the modifications to the open-source knowledge distillation recipe and the loss module from torchtune results in boosted metrics across multiple evaluation tasks, achieving high scores across the board.
