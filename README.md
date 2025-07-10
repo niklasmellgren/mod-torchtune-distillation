@@ -66,7 +66,7 @@ To determine the overall best-performing model, I calculated the **percentage di
 
 **Percentage Difference** = (Max Value − Model Value) / Max Value × 100
 
-This was averaged across all metrics to yield an **Overall Score**.
+This was averaged across all metrics to yield an **Overall Δ% Score**
 
 ### Final Ranking Based on Percentage Difference
 
