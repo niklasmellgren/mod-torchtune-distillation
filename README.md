@@ -87,8 +87,8 @@ This was averaged across all metrics to yield an **Overall Score**.
 
 Based on the analysis above, I selected the following top-performing distilled models:
 
-- 🥇 **3B-LoRA-to-1B (JSD)** – *Overall Δ%: 0.1961*
-- 🥈 **3B-LoRA-to-1B (FKL)** – *Overall Δ%: 0.4739*
+- **3B-LoRA-to-1B (JSD)** – *Overall Δ%: 0.1961*
+- **3B-LoRA-to-1B (FKL)** – *Overall Δ%: 0.4739*
 
 
 ## Experimentation with Intermediate Representations, KL Divergence, and Loss Scaling
