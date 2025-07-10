@@ -27,37 +27,69 @@ We distill:
 - **Teacher:** Llama 3.2 3B (baseline + LoRA fine-tuned)
 - **Student:** Llama 3.2 1B (baseline + LoRA fine-tuned)
 
-Trained on the `alpaca.cleaned.dataset` and evaluated:
+We train on the `alpaca.cleaned.dataset`.
 
-| Model                        | KLDiv | TruthfulQA acc | HellaSwag acc | HellaSwag acc norm | CommonSenseQA acc |
-|-----------------------------|--------|----------------|----------------|---------------------|--------------------|
-| 3B (baseline)               | -      | 0.4982         | 0.5225         | 0.7051              | 0.6757             |
-| 3B-LoRA                     | -      | 0.4937         | 0.5274         | 0.7079              | 0.6740             |
-| 1B (baseline)               | -      | 0.4387         | 0.4508         | 0.6080              | 0.5536             |
-| 1B-LoRA                     | -      | 0.4304         | 0.4534         | 0.6058              | 0.5430             |
-| 3B-to-1B                    | FKL    | 0.4399         | 0.4541         | 0.6097              | 0.5495             |
-| 3B-LoRA-to-1B               | FKL    | 0.4437         | 0.4574         | 0.6103              | 0.5536             |
-| 3B-to-1B-LoRA               | FKL    | 0.4184         | 0.4515         | 0.6077              | 0.5487             |
-| 3B-LoRA-to-1B-LoRA         | FKL    | 0.4293         | 0.4566         | 0.6108              | 0.5381             |
-| 3B-LoRA-to-1B               | RKL    | 0.4399         | 0.4568         | 0.6049              | 0.5471             |
-| 3B-LoRA-to-1B               | SYM    | 0.4359         | 0.4575         | 0.6069              | 0.5610             |
-| 3B-LoRA-to-1B               | JSD    | 0.4408         | 0.4583         | 0.6100              | 0.5627             |
-| 3B-LoRA-to-1B               | TVD    | 0.4351         | 0.4570         | 0.6084              | 0.5569             |
 
-| ID | Model         | Layer Mapping              | KLDiv | Loss Scaling              | TruthfulQA acc | HellaSwag acc | HellaSwag acc norm | CommonSenseQA acc |
-|----|---------------|----------------------------|--------|---------------------------|----------------|----------------|---------------------|--------------------|
-| 1  | 3B-LoRA-to-1B | [[4,7], [8,14], [12,21]]    | FKL    | ce: 0.5,kd: 0.3, ir: 0.2  | 0.4457         | 0.4569         | 0.6115              | 0.5430             |
-| 2  | 3B-LoRA-to-1B | [[4,7], [8,14], [12,21]]    | JSD    | ce: 0.5,kd: 0.3, ir: 0.2  | 0.4425         | 0.4518         | 0.5963              | 0.5274             |
-| 3  | 3B-LoRA-to-1B | [[4,7], [8,14], [12,21]]    | FKL    | ce: 0.5,kd: 0.2, ir: 0.3  | 0.4382         | 0.4538         | 0.6088              | 0.5258             |
-| 4  | 3B-LoRA-to-1B | [[4,7], [8,14], [12,21]]    | JSD    | ce: 0.5,kd: 0.2, ir: 0.3  | 0.4609         | 0.4501         | 0.5978              | 0.5127             |
-| 5  | 3B-LoRA-to-1B | [[0,15], [1,20], [2,25]]    | FKL    | ce: 0.5,kd: 0.3, ir: 0.2  | 0.4437         | 0.3649         | 0.4495              | 0.5340             |
-| 6  | 3B-LoRA-to-1B | [[0,15], [1,20], [2,25]]    | JSD    | ce: 0.5,kd: 0.3, ir: 0.2  | 0.4652         | 0.4277         | 0.5682              | 0.4668             |
-| 7  | 3B-LoRA-to-1B | [[0,15], [1,20], [2,25]]    | FKL    | ce: 0.5,kd: 0.2, ir: 0.3  | 0.4525         | 0.4504         | 0.5943              | 0.5225             |
-| 8  | 3B-LoRA-to-1B | [[0,15], [1,20], [2,25]]    | JSD    | ce: 0.5,kd: 0.2, ir: 0.3  | 0.4548         | 0.4413         | 0.5817              | 0.4808             |
-| 9  | 3B-LoRA-to-1B | [[6,8], [7,7], [8,6]]       | FKL    | ce: 0.5,kd: 0.3, ir: 0.2  | 0.4429         | 0.4545         | 0.6066              | 0.5479             |
-| 10 | 3B-LoRA-to-1B | [[6,8], [7,7], [8,6]]       | JSD    | ce: 0.5,kd: 0.3, ir: 0.2  | 0.4288         | 0.4416         | 0.5852              | 0.5153             |
-| 11 | 3B-LoRA-to-1B | [[6,8], [7,7], [8,6]]       | FKL    | ce: 0.5,kd: 0.2, ir: 0.3  | 0.4403         | 0.4517         | 0.6049              | 0.5512             |
-| 12 | 3B-LoRA-to-1B | [[6,8], [7,7], [8,6]]       | JSD    | ce: 0.5,kd: 0.2, ir: 0.3  | 0.4091         | 0.4378         | 0.5762              | 0.4848             |
+## Performance Metrics and Model Selection
+
+### Performance Metrics for Models
+
+The table below presents results from evaluating various models on the `lm-evaluation-harness` benchmarks. Each model was tested across four metrics, with different KL divergence techniques applied:
+
+| Model                      | KL Div | TruthfulQA acc | HellaSwag acc | HellaSwag acc norm | CommonSenseQA acc |
+|---------------------------|--------|----------------|----------------|---------------------|--------------------|
+| 3B (baseline)             | -      | 0.4982         | 0.5225         | 0.7051              | 0.6757             |
+| 3B-LoRA                   | -      | 0.4937         | 0.5274         | 0.7079              | 0.6740             |
+| 1B (baseline)             | -      | 0.4387         | 0.4508         | 0.6080              | 0.5536             |
+| 1B-LoRA                   | -      | 0.4304         | 0.4534         | 0.6058              | 0.5430             |
+| 3B-to-1B                  | FKL    | 0.4399         | 0.4541         | 0.6097              | 0.5495             |
+| 3B-LoRA-to-1B             | FKL    | 0.4437         | 0.4574         | 0.6103              | 0.5536             |
+| 3B-to-1B-LoRA             | FKL    | 0.4184         | 0.4515         | 0.6077              | 0.5487             |
+| 3B-LoRA-to-1B-LoRA        | FKL    | 0.4293         | 0.4566         | 0.6108              | 0.5381             |
+| 3B-LoRA-to-1B             | RKL    | 0.4399         | 0.4568         | 0.6049              | 0.5471             |
+| 3B-LoRA-to-1B             | SYM    | 0.4359         | 0.4575         | 0.6069              | 0.5610             |
+| 3B-LoRA-to-1B             | JSD    | 0.4408         | 0.4583         | 0.6100              | 0.5627             |
+| 3B-LoRA-to-1B             | TVD    | 0.4351         | 0.4570         | 0.6084              | 0.5569             |
+
+### Identifying Best Metric Scores
+
+The best scores across all distilled models:
+
+- **TruthfulQA acc**: 0.4437  
+- **HellaSwag acc**: 0.4583  
+- **HellaSwag acc norm**: 0.6108  
+- **CommonSenseQA acc**: 0.5627  
+
+### Percentage Difference Methodology
+
+To determine the overall best-performing model, I calculated the **percentage difference** from the best score per metric:
+
+\[
+\text{Percentage Difference} = \frac{\text{Max Value} - \text{Model Value}}{\text{Max Value}} \times 100
+\]
+
+This was averaged across all metrics to yield an **Overall Score**.
+
+### Final Ranking Based on Percentage Difference
+
+| Model                    | KL Div | TruthfulQA Δ% | HellaSwag Δ% | HellaSwag norm Δ% | CommonSenseQA Δ% | Overall Δ% |
+|--------------------------|--------|----------------|----------------|---------------------|--------------------|------------|
+| 3B-LoRA-to-1B            | JSD    | 0.6535         | 0.0000         | 0.1310              | 0.0000             | **0.1961** |
+| 3B-LoRA-to-1B            | FKL    | 0.0000         | 0.1964         | 0.0819              | 1.6172             | **0.4739** |
+| 3B-LoRA-to-1B            | SYM    | 1.7579         | 0.1746         | 0.6385              | 0.3021             | 0.7183     |
+| 3B-LoRA-to-1B            | TVD    | 1.9382         | 0.2837         | 0.3929              | 1.0307             | 0.9114     |
+| 3B-LoRA-to-1B            | RKL    | 0.8564         | 0.3273         | 0.9659              | 2.7723             | 1.2305     |
+| 3B-to-1B                 | FKL    | 0.8564         | 0.9164         | 0.1800              | 2.3458             | 1.0747     |
+| 3B-LoRA-to-1B-LoRA       | FKL    | 3.2454         | 0.3709         | 0.0000              | 4.3718             | 1.9970     |
+| 3B-to-1B-LoRA            | FKL    | 5.7020         | 1.4837         | 0.5075              | 2.4880             | 2.5453     |
+
+### Final Model Selection
+
+Based on the analysis above, I selected the following top-performing distilled models:
+
+- 🥇 **3B-LoRA-to-1B (JSD)** – *Overall Δ%: 0.1961*
+- 🥈 **3B-LoRA-to-1B (FKL)** – *Overall Δ%: 0.4739*
+
 
 
 - **TruthfulQA (truthfulqa mc2)**: The best-performing distilled model for this evaluation task, 3B-LoRA-to-1B, maps the early student layers to the deeper layers of the teacher model ([[0, 15], [1,20], [2,25]]) using Jensen-Shannon divergence (JSD) as KL divergence, and a loss scaling of ce: 0.5, kd: 0.3, ir: 0.2 with cosine similarity for intermediate representation alignment. This model achieves the highest score of 0.4652.
