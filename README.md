@@ -91,8 +91,55 @@ Based on the analysis above, I selected the following top-performing distilled m
 - 🥈 **3B-LoRA-to-1B (FKL)** – *Overall Δ%: 0.4739*
 
 
+## Experimentation with Intermediate Representations, KL Divergence, and Loss Scaling
 
-- **TruthfulQA (truthfulqa mc2)**: The best-performing distilled model for this evaluation task, 3B-LoRA-to-1B, maps the early student layers to the deeper layers of the teacher model ([[0, 15], [1,20], [2,25]]) using Jensen-Shannon divergence (JSD) as KL divergence, and a loss scaling of ce: 0.5, kd: 0.3, ir: 0.2 with cosine similarity for intermediate representation alignment. This model achieves the highest score of 0.4652.
+After identifying the top-performing models, I performed a deeper exploration into three main areas to further optimize distillation:
+
+---
+
+### Layer Mapping Approaches
+
+Three different layer mapping strategies were used, defining how student model layers map to teacher model layers:
+
+- `[[4,7],[8,14],[12,21]]`: Maps 25%, 50%, and 75% of layers (e.g., student layer 4 → teacher layer 7)
+- `[[0,15],[1,20],[2,25]]`: Maps early student layers to deeper teacher layers
+- `[[6,8],[7,7],[8,6]]`: Maps later student layers to earlier teacher layers
+
+---
+
+### Loss Scaling Approaches
+
+To control training dynamics, I used custom loss scaling:
+- `ce`: Cross-entropy loss
+- `kd`: Knowledge distillation loss
+- `ir`: Intermediate representation loss
+
+Each experiment uses a different loss weighting combination.
+
+---
+
+### Experiment Results Table
+
+| ID | Model               | Layer Mapping                  | KL Div | Loss Scaling              | TruthfulQA acc | HellaSwag acc | HellaSwag acc norm | CommonSenseQA acc |
+|----|---------------------|--------------------------------|--------|---------------------------|----------------|----------------|---------------------|--------------------|
+| 1  | 3B-LoRA-to-1B       | [[4,7], [8,14], [12,21]]       | FKL    | ce: 0.5, kd: 0.3, ir: 0.2 | 0.4457         | 0.4569         | 0.6115              | 0.5430             |
+| 2  | 3B-LoRA-to-1B       | [[4,7], [8,14], [12,21]]       | JSD    | ce: 0.5, kd: 0.3, ir: 0.2 | 0.4425         | 0.4518         | 0.5963              | 0.5274             |
+| 3  | 3B-LoRA-to-1B       | [[4,7], [8,14], [12,21]]       | FKL    | ce: 0.5, kd: 0.2, ir: 0.3 | 0.4382         | 0.4538         | 0.6088              | 0.5258             |
+| 4  | 3B-LoRA-to-1B       | [[4,7], [8,14], [12,21]]       | JSD    | ce: 0.5, kd: 0.2, ir: 0.3 | 0.4609         | 0.4501         | 0.5978              | 0.5127             |
+| 5  | 3B-LoRA-to-1B       | [[0,15], [1,20], [2,25]]       | FKL    | ce: 0.5, kd: 0.3, ir: 0.2 | 0.4437         | 0.3649         | 0.4495              | 0.5340             |
+| 6  | 3B-LoRA-to-1B       | [[0,15], [1,20], [2,25]]       | JSD    | ce: 0.5, kd: 0.3, ir: 0.2 | 0.4652         | 0.4277         | 0.5682              | 0.4668             |
+| 7  | 3B-LoRA-to-1B       | [[0,15], [1,20], [2,25]]       | FKL    | ce: 0.5, kd: 0.2, ir: 0.3 | 0.4525         | 0.4504         | 0.5943              | 0.5225             |
+| 8  | 3B-LoRA-to-1B       | [[0,15], [1,20], [2,25]]       | JSD    | ce: 0.5, kd: 0.2, ir: 0.3 | 0.4548         | 0.4413         | 0.5817              | 0.4808             |
+| 9  | 3B-LoRA-to-1B       | [[6,8], [7,7], [8,6]]          | FKL    | ce: 0.5, kd: 0.3, ir: 0.2 | 0.4429         | 0.4545         | 0.6066              | 0.5479             |
+| 10 | 3B-LoRA-to-1B       | [[6,8], [7,7], [8,6]]          | JSD    | ce: 0.5, kd: 0.3, ir: 0.2 | 0.4288         | 0.4416         | 0.5852              | 0.5153             |
+| 11 | 3B-LoRA-to-1B       | [[6,8], [7,7], [8,6]]          | FKL    | ce: 0.5, kd: 0.2, ir: 0.3 | 0.4403         | 0.4517         | 0.6049              | 0.5512             |
+| 12 | 3B-LoRA-to-1B       | [[6,8], [7,7], [8,6]]          | JSD    | ce: 0.5, kd: 0.2, ir: 0.3 | 0.4091         | 0.4378         | 0.5762              | 0.4848             |
+
+---
+
+## Conclusion
+
+- **TruthfulQA (acc)**: The best-performing distilled model for this evaluation task, 3B-LoRA-to-1B, maps the early student layers to the deeper layers of the teacher model ([[0, 15], [1,20], [2,25]]) using Jensen-Shannon divergence (JSD) as KL divergence, and a loss scaling of ce: 0.5, kd: 0.3, ir: 0.2 with cosine similarity for intermediate representation alignment. This model achieves the highest score of 0.4652.
 - **HellaSwag (acc norm)**: The best performance on hellaswag acc norm (0.6115) is achieved by the distilled model 3B-LoRA-to-1B, which maps layers evenly with 25%, 50%, and 75% ([[4,7], [8,14], [12,21]]) and uses ForwardKL (FKL) as KL divergence with a loss scaling of ce: 0.5, kd: 0.3, ir: 0.2 and cosine similarity for intermediate representation alignment.
 - **HellaSwag (acc) and CommonSenseQA (acc)**: The 3B-LoRA-to-1B model with kd ratio: 0.5 and JSD as KL divergence scores the highest on both hellaswag acc (0.4583) and commonsense qa acc (0.5627).
 
